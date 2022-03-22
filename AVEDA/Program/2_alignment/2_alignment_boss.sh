@@ -22,16 +22,7 @@ then
 	echo " " >> ../../Report_${jName}.txt
 	echo " Structure Alignment" >> ../../Report_${jName}.txt
 
-	# uses ArbAlign open source program to reorder intermediate to TS by connectivity 
 	module load python
-	cp ./int_initalOptXYZ.xyz ./ArbAlign/
-	cp ./ts_initalOptXYZ.xyz ./ArbAlign/
-	cd ./ArbAlign/
-	python ArbAlign-driver.py -b 'c' "ts_initalOptXYZ.xyz" "int_initalOptXYZ.xyz"
-
-	cp ./molecule-aligned_to-reference.xyz ../int_orderedByTS.xyz
-	cd ..
-	echo "    - Intermediate atom numbering matched to TS order" >> ../../Report_${jName}.txt
 
 	# aligns intermediate to TS using pyMol
 	module load pymol
