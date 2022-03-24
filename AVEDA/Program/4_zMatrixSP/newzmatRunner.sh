@@ -10,6 +10,8 @@
 #SBATCH -o run.out
 
 mkdir ./gaussSD
+export TMPDIR=./tempDir/
+mkdir -p ./tempDir
 export GAUSS_SCRDIR=./gaussSD/
 
 #load Gaussian
@@ -47,5 +49,11 @@ rm int_zmatrixSplit_2.xyz
 
 rm ts_zmatrixSplit_1.xyz
 rm int_zmatrixSplit_1.xyz 
+
+rm -rf ./gaussSD
+rm -rf ./tempDir
+
+rm ./run.out
+rm ./run.err
 
 sh ./submissionHandler.sh

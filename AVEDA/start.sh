@@ -12,10 +12,10 @@
 
 
 echo " "
-echo "Beginning processes for Aveda" 
+echo "Beginning processes for A.V.E.D.A." 
 echo " "
 
-echo "## Starting AVEDA for ${8} ## " >> Report_${8}.txt
+echo "## Starting A.V.E.D.A. for ${8} ## " >> Report_${8}.txt
 echo " " >> Report_${8}.txt
 
 cp -r ./Program/ ./${8}
@@ -65,6 +65,6 @@ done
 
 echo " "
 echo "Inital submissions complete,"
-echo "Aveda's progress will be logged in Report_${8}.txt"
+echo "A.V.E.D.A.'s progress will be logged in Report_${8}.txt"
 
 

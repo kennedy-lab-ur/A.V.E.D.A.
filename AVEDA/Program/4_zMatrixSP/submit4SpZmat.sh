@@ -24,16 +24,16 @@ then
 	# create a directory for files related to the job being submitted
 	mkdir "${1}"
 	cp ${1}.gjf ./${1}/
+	# remove the extra input file and the temporary SLURM submission script
+	rm ${1}.gjf
 
     sed s/jobname/${1}/g template4SpZmat.sh | sed s/processors/${proc}/ | sed s/thePartition/${thePart}/g | sed s/usr/${usr1}/g | sed s/maximum_runtime/${mTime}/g > ./${1}/submit_${1}.sh
 
 	# submit the job using the temporary SLURM submission script
 	cd ./${1}/
+	
 	sbatch < ./submit_${1}.sh
-	cd ..
 
-	# remove the extra input file and the temporary SLURM submission script
-	rm ${1}.gjf
 
 else
 	echo "File not found for Z-Matrix SP of ${1} -- job not started." >> ../../Report_${jName}.txt

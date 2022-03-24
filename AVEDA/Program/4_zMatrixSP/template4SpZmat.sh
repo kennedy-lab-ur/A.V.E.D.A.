@@ -10,10 +10,9 @@
 #SBATCH -o run.out
 
 mkdir ./gaussSD
-mkdir ./tempDir
-
-export GAUSS_SCRDIR=./gaussSD/
 export TMPDIR=./tempDir/
+mkdir -p ./tempDir
+export GAUSS_SCRDIR=./gaussSD/
 
 #load Gaussian
 module load gaussian/16-a03
@@ -30,9 +29,10 @@ rm -rf ./tempDir
 cp jobname.out ../../5_dipoleCalculation/zmat_jobname.out
 cp jobname.out ../../7_results/noField_jobname.out
 
+rm ./run.out
+rm ./run.err
+
 cd ../../5_dipoleCalculation/
 sh ./5_dipoleCalculation_boss.sh
 
-rm ./run.out
-rm ./run.err
 

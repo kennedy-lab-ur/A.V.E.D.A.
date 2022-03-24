@@ -10,10 +10,9 @@
 #SBATCH -o run.out
 
 mkdir ./gaussSD
-mkdir ./tempDir
-
-export GAUSS_SCRDIR=./gaussSD/
 export TMPDIR=./tempDir/
+mkdir -p ./tempDir
+export GAUSS_SCRDIR=./gaussSD/
 
 jName=`cat ../../inputParameters/name.txt`
 

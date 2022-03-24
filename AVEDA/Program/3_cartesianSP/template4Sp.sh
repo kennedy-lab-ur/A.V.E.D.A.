@@ -10,10 +10,9 @@
 #SBATCH -o run.out
 
 mkdir ./gaussSD
-mkdir ./tempDir
-
-export GAUSS_SCRDIR=./gaussSD/
 export TMPDIR=./tempDir/
+mkdir -p ./tempDir
+export GAUSS_SCRDIR=./gaussSD/
 
 #load Gaussian
 module load gaussian/16-a03
@@ -26,12 +25,14 @@ g16 jobname.gjf jobname.out
 rm -rf ./gaussSD
 rm -rf ./tempDir
 
+rm ./run.out
+rm ./run.err
+
 # copy output to the dipole directory
 cp jobname.out ../../5_dipoleCalculation/cart_jobname.out
 cd ../../5_dipoleCalculation/
 sh ./5_dipoleCalculation_boss.sh
 
-rm ./run.out
-rm ./run.err
+
 
 
