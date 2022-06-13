@@ -10,39 +10,53 @@ import __main__
 import sys, time, os
 import csv
 import math
+import numpy as np
 import matplotlib.pyplot as plt
 
 
 def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100):
 	
 	hartree = [float(TnF.strip()), float(T25.strip()), float(T50.strip()), float(T75.strip()), float(T100.strip()), float(InF.strip()), float(I25.strip()), float(I50.strip()), float(I75.strip()), float(I100.strip())]
-	
-	print(hartree)
+
 
 	kcal = [ hrt * 627.5 for hrt in hartree ]
-	print(kcal)
 	
 	deltKcal = [ kcal[0] - kcal[5] , kcal[1] - kcal[6] , kcal[2] - kcal[7], kcal[3] - kcal[8], kcal[4] - kcal[9]]
 
 	deltDeltKcal = [ 0, deltKcal[1] - deltKcal[0] , deltKcal[2] - deltKcal[0] , deltKcal[3] - deltKcal[0] , deltKcal[4] - deltKcal[0] ]
 
-	print(deltKcal)
-	print(deltDeltKcal)
-
-
 	field = [0,-25,-50,-75,-100]
 	fig, ax = plt.subplots(figsize=(8,6))
-	plt.scatter(field,deltKcal,s=60,color='steelblue',label='optimized barriers')
-	
-	plt.xlim([-110, 10])
-	plt.title("EEF Results", fontweight='bold')
-	
+	plt.scatter(field,deltKcal,s=80,color='steelblue',label='optimized barriers', zorder=2)
 
-	plt.xlabel('Field Strength ($10^{-4}$ a.u.)')
+	z = np.polyfit(field, deltKcal, 1)
+
+	p = np.poly1d(z)
+
+	m = round(p.c[0],3)
+	b = round(p.c[1],3)
+
+	correlation_matrix = np.corrcoef(field, deltKcal)
+	correlation_xy = correlation_matrix[0,1]
+	r_2 = round(correlation_xy**2,5)
+
+	lineLable = "("+str(m)+")" + "x + " + str(b) + "\nR${}^{2}$ = " + str(r_2)
+	ax.plot(field,p(field),color='gainsboro',linewidth=2.2,zorder=1,label=lineLable)
+
+	plt.title("OEF Results", fontweight='bold')
+	
+	plt.xlabel('Field Strength along $\Delta$$\mu$ ($10^{-4}$ a.u.)')
 	plt.ylabel('Transformatiom Barrier ($\Delta$ kcal/mol)')
 
-	plt.legend(bbox_to_anchor=(0.97, 0.1297), bbox_transform=ax.transAxes, scatterpoints=1)
-	plt.savefig('./OEF_Results.png')
+	leg = ax.legend(bbox_to_anchor=(0.97, 0.2297), bbox_transform=ax.transAxes, scatterpoints=1,fontsize="small")
+	for line in leg.get_lines():
+		line.set_linewidth(4.7)
+
+	plt.xlim([-110,10])
+
+	plt.savefig('./OEF_Results.png', dpi=400, bbox_inches='tight')
+
+	
 
 	header = ["Results" ," " ," ", " "," ", " "]
 	line1 = [ "Field [10^{-4} a.u.]" ," 0" , " -25 " , " -50 " ," -75 " ," -100 "] 

@@ -23,6 +23,14 @@ let STEPS=STEPS*$?
 
 if [ $SUCCESS -eq 0 ]
 then
+
+	cp ${1}.out ../../7_results/${1}.out
+	cd ../../7_results/
+	sh ./7_Results_boss.sh
+
+	cd ..
+	cd 6_electricFieldOpt/${1}/
+
 	echo "success"
 	if [ ${nextMag} -ne "125" ]
 	then 

@@ -29,12 +29,5 @@ g16 jobname.gjf jobname.out
 rm -rf ./gaussSD
 rm -rf ./tempDir
 
-cp jobname.out ../../7_results/jobname.out
-cd ../../7_results/
-sh ./7_Results_boss.sh
-
-cd ..
-cd 6_electricFieldOpt/jobname/
-
 sh ./analyzeGaussian.sh jobname
 

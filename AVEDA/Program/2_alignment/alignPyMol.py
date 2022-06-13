@@ -11,49 +11,9 @@ __main__.pymol_argv = [ 'pymol', '-qc'] # Quietly load
 pymol.finish_launching()
 
 
-
 def removeValueFromList(theList, theValue):
 	return [value for value in theList if value != theValue]
 
-
-
-# Load Structures
-def alignOLD(tsName, intName):
-	print("in align")
-	pymol.cmd.load(tsName)
-	pymol.cmd.load(intName)
-
-	pIntName = intName.split(".")[0]
-	pTsName = tsName.split(".")[0]
-
-	pymol.cmd.align(pIntName, pTsName)
-
-	aln = pymol.cmd.align(pIntName, pTsName, object='aln')
-
-	raw_aln = pymol.cmd.get_raw_alignment('aln')
-
-	# print residue pairs (ts , int index)
-
-	notOrderedAlignments = []
-	print(notOrderedAlignments)
-
-	for idx1, idx2 in raw_aln:
-		atomNumber = tuple(idx1 + idx2)[1]
-		distance = pymol.cmd.get_distance(idx1, idx2)
-		notOrderedAlignments.append([atomNumber, distance])
-
-	print(notOrderedAlignments)
-	orderedAlignments = sorted(notOrderedAlignments, key=lambda x: x[1])
-	print(orderedAlignments)
-	
-	pymol.cmd.delete(pTsName)
-	pymol.cmd.enable(pIntName)
-
-	pymol.cmd.save("./int_initalOptXYZ.xyz")
-
-	pymol.cmd.quit()
-
-	return orderedAlignments
 
 # Aligns the Int to the TS geometry and saves the .xyz file
 def align(tsName, intName):
@@ -362,13 +322,10 @@ def findMostDistantAtom(tsLinesL, intLinesL, mostMovingAtom):
 
 	return ordDistancesNoH[0][1]
 
-
-print(sys.argv[3])
-
 if sys.argv[3] == "1" :
 
 	ordAlign = align2(sys.argv[1], sys.argv[2])
-	#reOrderXYZ(ordAlign, sys.argv[1], sys.argv[2])
+
 	reOrderCenterXYZ(sys.argv[1], sys.argv[2])
 
 else :
