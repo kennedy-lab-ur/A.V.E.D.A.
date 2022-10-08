@@ -6,6 +6,7 @@ func=`cat ../inputParameters/func.txt`
 basis=`cat ../inputParameters/basis.txt`
 jName=`cat ../inputParameters/name.txt`
 memGauss=`cat ../inputParameters/memTotalGauss.txt`
+freqInput=`cat ../inputParameters/freq.txt`
 
 if [ -f ${1}.xyz ]
 then
@@ -19,7 +20,7 @@ then
 	if [ ${2} == 0 ]
 	then
 		
-		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) Field=read NoSymm ${func}\/${basis} >> ${1}_field_N25.gjf
+		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) Field=read NoSymm ${func}\/${basis} ${freqInput} >> ${1}_field_N25.gjf
 
 		echo " " >> ${1}_field_N25.gjf
 		echo ${1}_initalOpt >> ${1}_field_N25.gjf
@@ -32,7 +33,7 @@ then
 
 	else
 
-		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} Field=read NoSymm >> ${1}_field_N25.gjf
+		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} Field=read NoSymm ${freqInput} >> ${1}_field_N25.gjf
 
 		echo " " >> ${1}_field_N25.gjf
 		echo ${1}_initalOpt >> ${1}_field_N25.gjf

@@ -6,27 +6,37 @@
 # Pulls out final energy of all 10 geometries for results organization
 
 jName=`cat ../inputParameters/name.txt`
+freqInput=`cat ../inputParameters/freq.txt`
 
 numSpDone=$(ls *.out | wc -l)
 
-if  [ ${numSpDone} == 10 ]  ;
+if  [ ${numSpDone} == 12 ]  ;
 then
 	echo "    - All optimizations done" >> ../../Report_${jName}.txt
 	echo "    ******************************************" >> ../../Report_${jName}.txt
 	echo " " >> ../../Report_${jName}.txt
-	
-	for sp in *.out ; do
-		grep -i -h "SCF Done:" ${sp} | tail -n 1 | grep -o -P '(?<= =).*(?=A.U.)' | tr -d ' ' >> ${sp::-4}_scf.txt
-	done
-	
-
-	TnF=$(cat ./noField_ts_initalOpt_zmat_sp_scf.txt)
+	if [ -z "${freqInput}" ] 
+	then
+		for sp in *.out ; do
+			grep -i -h "SCF Done:" ${sp} | tail -n 1 | grep -o -P '(?<= =).*(?=A.U.)' | tr -d ' ' >> ${sp::-4}_scf.txt
+		done
+		TnF=$(cat ./noField_ts_initalOpt_zmat_sp_scf.txt)
+		InF=$(cat ./noField_int_initalOpt_zmat_sp_scf.txt)
+		freqG=`0`
+	else
+		for sp in *.out ; do
+			grep -i -h "Sum of electronic and thermal Free Energies=" ${sp} | tr -d ' ' | cut -d "=" -f 2 >> ${sp::-4}_scf.txt
+		done
+		TnF=$(cat ./ts_scf.txt)
+		InF=$(cat ./int_scf.txt)
+		freqG=`1`
+	fi
+		
 	T25=$(cat ./ts_zmat_field_N25_scf.txt)
 	T50=$(cat ./ts_zmat_field_N50_scf.txt)
 	T75=$(cat ./ts_zmat_field_N75_scf.txt)
 	T100=$(cat ./ts_zmat_field_N100_scf.txt)
 
-	InF=$(cat ./noField_int_initalOpt_zmat_sp_scf.txt)
 	I25=$(cat ./int_zmat_field_N25_scf.txt)
 	I50=$(cat ./int_zmat_field_N50_scf.txt)
 	I75=$(cat ./int_zmat_field_N75_scf.txt)
@@ -34,8 +44,16 @@ then
 
 	# calls python script to generate graph and .csv
 	module load python
-	python resultsFormater.py ${TnF} ${T25} ${T50} ${T75} ${T100} ${InF} ${I25} ${I50} ${I75} ${I100}
+	python resultsFormater.py ${TnF} ${T25} ${T50} ${T75} ${T100} ${InF} ${I25} ${I50} ${I75} ${I100} ${freqG}
+	cd geometries
+	
+	module load pymol
 
+	python analyzeRMSD.py 
+	cp ./RMSD_Results.csv ../RMSD_Results.csv
+
+	cd ..
+	
 	echo " Results summarized in ./${jName}/7_Results/" >> ../../Report_${jName}.txt
 	echo " " >> ../../Report_${jName}.txt
 	echo "## AVEDA Run Complete ## " >> ../../Report_${jName}.txt

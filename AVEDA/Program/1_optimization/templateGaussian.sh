@@ -24,10 +24,9 @@ g16 jobname.gjf jobname.out
 # clean up gaussian scratch directory
 rm -rf ./gaussSD
 rm -rf ./tempDir
+rm ./run.out
+rm ./run.err
 
 # calls analysis program to extract optimized geometry
 sh ./analyzeInitalOpt.sh jobname.out
-
-rm ./run.out
-rm ./run.err
 

@@ -6,6 +6,7 @@ func=`cat ../inputParameters/func.txt`
 basis=`cat ../inputParameters/basis.txt`
 jName=`cat ../inputParameters/name.txt`
 memGauss=`cat ../inputParameters/memTotalGauss.txt`
+freqInput=`cat ../inputParameters/freq.txt`
 
 if [ -f ${1}.xyz ]
 then
@@ -20,7 +21,7 @@ then
 	if [ ${2} == 0 ]
 	then
 
-		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) geom=allcheckpoint guess=read Field=read NoSymm ${func}\/${basis} >> ${1}_field_N${3}.gjf
+		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) geom=allcheckpoint guess=read Field=read NoSymm ${func}\/${basis} ${freqInput} >> ${1}_field_N${3}.gjf
 
 		echo " " >> ${1}_field_N${3}.gjf
 		cat ./ts_N${3}.txt >> ${1}_field_N${3}.gjf
@@ -28,7 +29,7 @@ then
 
 	else
 
-		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} geom=allcheckpoint guess=read Field=read NoSymm >> ${1}_field_N${3}.gjf
+		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} geom=allcheckpoint guess=read Field=read NoSymm ${freqInput} >> ${1}_field_N${3}.gjf
 
 		echo " " >> ${1}_field_N${3}.gjf
 		cat ./int_N${3}.txt >> ${1}_field_N${3}.gjf

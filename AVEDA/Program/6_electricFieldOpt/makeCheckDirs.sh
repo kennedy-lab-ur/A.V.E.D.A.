@@ -35,6 +35,7 @@ then
 	echo ${2} >> ./${1}/lvl.txt
 	cp analyzeGaussian.sh ./${1}/
 	cp stepErrorSubmissionScripter.sh ./${1}/
+	cp formateInitalOpt.py ./${1}/
 
 	if [ ${3} == 1 ];
 	then 

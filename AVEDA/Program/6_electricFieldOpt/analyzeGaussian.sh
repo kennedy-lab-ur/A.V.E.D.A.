@@ -24,6 +24,10 @@ let STEPS=STEPS*$?
 if [ $SUCCESS -eq 0 ]
 then
 
+	tac ${1}.out | grep -F -m1 -B 999999 'Z-Matrix orientation:' | head -n -5 >> ${1}.txt
+	python formateInitalOpt.py ${1}
+
+	cp ${1}.xyz ../../7_results/geom/${1}.xyz
 	cp ${1}.out ../../7_results/${1}.out
 	cd ../../7_results/
 	sh ./7_Results_boss.sh

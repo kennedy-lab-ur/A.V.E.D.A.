@@ -37,6 +37,7 @@ then
 	cp ${1}.gjf ./${1}/
 	cp analyzeGaussian.sh ./${1}/
 	cp stepErrorSubmissionScripter.sh ./${1}/
+	cp formateInitalOpt.py ./${1}/
 
 	if [ ${2} == 1 ];
 	then 

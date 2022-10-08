@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 
+### formateInitalOpt.py ###
+# by Dalton J. Hanaway and C. Rose Kennedy
+
+# Formats .xyz for sp calculation from optimized geometry
+
 import sys
 
-#formates .xyz for sp
 def makeXYZ(name):
 	
-	file1 = open(name+ ".txt", 'r')
+	file1 = open(name, 'r')
 	Lines = file1.readlines()
 	Lines.reverse()
 	file1.close()
@@ -28,7 +32,7 @@ def makeXYZ(name):
 			strLine += "\n"
 			xyzLines.append(strLine)
 
-	newFileName = "./" + name + ".xyz"
+	newFileName = "./" + name.split(".")[0] + "_initalOptXYZ.xyz"
 	exportFile = open(newFileName,"w")
 	exportFile.write(str(atomCount) + "\n")
 	exportFile.write(" \n")

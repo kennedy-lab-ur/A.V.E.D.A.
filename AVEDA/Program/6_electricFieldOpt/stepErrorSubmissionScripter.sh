@@ -6,6 +6,7 @@ func=`cat ../../inputParameters/func.txt`
 basis=`cat ../../inputParameters/basis.txt`
 jName=`cat ../../inputParameters/name.txt`
 memGauss=`cat ../../inputParameters/memTotalGauss.txt`
+freqInput=`cat ../../inputParameters/freq.txt`
 
 #1 name of new gjf (probably original and rename other one first
 #2 new zmatrix geometry
@@ -24,7 +25,7 @@ then
 	if [ ${4} == "ts" ]
 	then
 		
-		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) Field=read NoSymm ${func}\/${basis} >> ${1}.gjf
+		echo \# Opt=\(TS, CalcFC, noeigentest, Z-matrix, MaxStep=10\) Field=read NoSymm ${func}\/${basis} ${freqInput} >> ${1}.gjf
 
 		echo " " >> ${1}.gjf
 		echo ${1}_initalOpt >> ${1}.gjf
@@ -37,7 +38,7 @@ then
 
 	else
 
-		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} Field=read NoSymm >> ${1}.gjf
+		echo \# Opt=\(Z-matrix, MaxStep=10\) ${func}\/${basis} Field=read NoSymm ${freqInput} >> ${1}.gjf
 
 		echo " " >> ${1}.gjf
 		echo ${1}_initalOpt >> ${1}.gjf

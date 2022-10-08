@@ -11,6 +11,8 @@ python formateInitalOpt.py ${1::-4}.txt
 
 # copies results to alignment directory and calls alignment sequenece
 cp ./${1::-4}_initalOptXYZ.xyz ../../2_alignment/
+cp ./${1::-4}_initalOptXYZ.xyz ../../7_results/geom/
+cp *.out ../../7_results/
 
 cd ../../2_alignment/
 sh ./2_alignment_boss.sh

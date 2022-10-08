@@ -14,8 +14,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100):
+def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100, freqG):
 	
+	unit = "E"
+	if  freqG=='1' :
+		unit = "G"
+
 	hartree = [float(TnF.strip()), float(T25.strip()), float(T50.strip()), float(T75.strip()), float(T100.strip()), float(InF.strip()), float(I25.strip()), float(I50.strip()), float(I75.strip()), float(I100.strip())]
 
 
@@ -46,7 +50,7 @@ def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100):
 	plt.title("OEF Results", fontweight='bold')
 	
 	plt.xlabel('Field Strength along $\Delta$$\mu$ ($10^{-4}$ a.u.)')
-	plt.ylabel('Transformatiom Barrier ($\Delta$ kcal/mol)')
+	plt.ylabel('Transformatiom Barrier ($\Delta$'+unit+' kcal/mol)')
 
 	leg = ax.legend(bbox_to_anchor=(0.97, 0.2297), bbox_transform=ax.transAxes, scatterpoints=1,fontsize="small")
 	for line in leg.get_lines():
@@ -62,10 +66,10 @@ def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100):
 	line1 = [ "Field [10^{-4} a.u.]" ," 0" , " -25 " , " -50 " ," -75 " ," -100 "] 
 	line2 = ["Int [a.u.]" , InF , I25, I50, I75, I100 ]
 	line3 = ["TS [a.u.]" , TnF , T25, T50, T75, T100 ]
+	
 
-
-	line4 = ["Delta E [kcal/mol]" , str(deltKcal[0]) , str(deltKcal[1]), str(deltKcal[2]), str(deltKcal[3]), str(deltKcal[4])]
-	line5 = ["Delta Delta E [kcal/mol]" , str(deltDeltKcal[0]) , str(deltDeltKcal[1]), str(deltDeltKcal[2]), str(deltDeltKcal[3]), str(deltDeltKcal[4])]
+	line4 = ["Delta "+unit+" [kcal/mol]" , str(deltKcal[0]) , str(deltKcal[1]), str(deltKcal[2]), str(deltKcal[3]), str(deltKcal[4])]
+	line5 = ["Delta Delta "+unit+" [kcal/mol]" , str(deltDeltKcal[0]) , str(deltDeltKcal[1]), str(deltDeltKcal[2]), str(deltDeltKcal[3]), str(deltDeltKcal[4])]
 
 	
 	with open('AppliedFieldResults.csv', 'w') as f:
@@ -82,6 +86,6 @@ def exportResults(TnF, T25, T50, T75, T100, InF, I25, I50, I75, I100):
 		f.close()
 
 
-exportResults(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10])
+exportResults(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
 
 

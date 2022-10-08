@@ -7,6 +7,7 @@
 
 jName=`cat ../inputParameters/name.txt`
 memGauss=`cat ../inputParameters/memTotalGauss.txt`
+freqInput=`cat ../inputParameters/freq.txt`
 
 if [ -f ${1}.xyz ]
 then
@@ -19,9 +20,9 @@ then
 	# handles making TS and Int submission files differently
 	if [ ${2} == 0 ]
 	then
-		echo \# Opt=\(TS, CalcFC, noeigentest\) ${5}\/${6} >> ${1}.gjf
+		echo \# Opt=\(TS, CalcFC, noeigentest\) ${5}\/${6} ${freqInput} >> ${1}.gjf
 	else
-		echo \# Opt ${5}\/${6} >> ${1}.gjf
+		echo \# Opt ${5}\/${6} ${freqInput} >> ${1}.gjf
 	fi
 
 	# adds geometry from .xyz file
