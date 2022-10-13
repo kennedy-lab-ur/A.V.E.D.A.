@@ -8,7 +8,7 @@ After downloading Aveda, one must navigate to the Program's super folder and run
 ```chmod -R 777 Program```
 to change permissions of the scripts.
 
-To initate an A.V.E.D.A. instance, ensure both intermediate and transistion state .xyz files are in a folder with the *Program* folder and *start.sh*. A user must specify the following criteria in the start command for a successful run. As all information is crucial, if any of the parameters are missing A.V.E.D.A. will fail to run. A run may be started by running: ```sh ./start.sh ts_filename.xyz int_filename.xyz charge multiplicity functional basis_set [atom_reordering_method (0, 1, or 2)] computation_name number_of_processors SLURM_partition_name``` in a terminal navigated to the folder containing the previously noted files.
+To initate an A.V.E.D.A. instance, ensure both intermediate and transistion state .xyz files are in a folder with the *Program* folder and *start.sh*. A user must specify the following criteria in the start command for a successful run. As all information is crucial, if any of the parameters are missing A.V.E.D.A. will fail to run. A run may be started by running: ```sh ./start.sh ts_filename.xyz int_filename.xyz charge multiplicity functional basis_set [atom_reordering_method (0, 1, or 2)] computation_name number_of_processors SLURM_partition_name [freq/nofreq]``` in a terminal navigated to the folder containing the previously noted files.
 
 Note special characters such as ( should be preceeded by \ for example 6-31G(d) should be input as ```6-31G\(d\)```
 
