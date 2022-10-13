@@ -8,14 +8,14 @@
 #          - runs calls submitter script for both
 # 		   - the ts and int xyz files must be in the same directory as this start.sh file
 
-# Syntax:  sh ./start.sh tsGeomFile.xyz intGeomFile.xyz charge multi functional basisSet [reorder atoms (0/1/2)] jobName numberOfProcessors partitionName
+# Syntax:  sh ./start.sh tsGeomFile.xyz intGeomFile.xyz charge multi functional basisSet [reorder atoms (0/1/2)] jobName numberOfProcessors partitionName [freq / nofreq]
 
 
 echo " "
 echo "Beginning processes for A.V.E.D.A." 
 echo " "
 
-if [ -z "${10}" ]
+if [ -z "${11}" ]
 then
 	echo "Not all arguments satisfied for A.V.E.D.A. please check input"
 	echo "Run Terminated"
@@ -42,6 +42,13 @@ else
 	echo ${9} >> ./${8}/inputParameters/memTotalGauss.txt
 
 	echo ${10} >> ./${8}/inputParameters/partition.txt
+
+	if [ ${11} == "freq" ] 
+	then
+		echo "freq=noraman pop=none" >> ./${8}/inputParameters/freq.txt
+	else
+		echo "" >> ./${8}/inputParameters/freq.txt
+	fi
 
 	sinfo -p ${10} -h -o=%l | cut -c2- >> ./${8}/inputParameters/maximumTime.txt
 	 	

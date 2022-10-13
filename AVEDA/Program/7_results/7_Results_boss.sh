@@ -15,6 +15,8 @@ then
 	echo "    - All optimizations done" >> ../../Report_${jName}.txt
 	echo "    ******************************************" >> ../../Report_${jName}.txt
 	echo " " >> ../../Report_${jName}.txt
+	freqG=`echo 0`
+
 	if [ -z "${freqInput}" ] 
 	then
 		for sp in *.out ; do
@@ -22,14 +24,13 @@ then
 		done
 		TnF=$(cat ./noField_ts_initalOpt_zmat_sp_scf.txt)
 		InF=$(cat ./noField_int_initalOpt_zmat_sp_scf.txt)
-		freqG=`0`
 	else
 		for sp in *.out ; do
 			grep -i -h "Sum of electronic and thermal Free Energies=" ${sp} | tr -d ' ' | cut -d "=" -f 2 >> ${sp::-4}_scf.txt
 		done
 		TnF=$(cat ./ts_scf.txt)
 		InF=$(cat ./int_scf.txt)
-		freqG=`1`
+		freqG=`echo 1`
 	fi
 		
 	T25=$(cat ./ts_zmat_field_N25_scf.txt)
