@@ -30,8 +30,8 @@ def calculateRMSD(noFieldName, listOfGeometryNames):
 
 def analyzeGeometriesRMSD():
 
-	tsNoField = 'ts_initalOptXYZ.xyz'
-	intNoField = 'int_initalOptXYZ.xyz'
+	tsNoField = 'ts_initalOpt_zmat_sp.xyz'
+	intNoField = 'int_initalOpt_zmat_sp.xyz'
 
 
 	tsFileNames = ['ts_zmat_field_N25.xyz', 'ts_zmat_field_N50.xyz', 'ts_zmat_field_N75.xyz','ts_zmat_field_N100.xyz']

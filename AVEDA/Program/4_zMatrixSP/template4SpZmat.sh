@@ -25,6 +25,11 @@ g16 jobname.gjf jobname.out
 rm -rf ./gaussSD
 rm -rf ./tempDir
 
+tac jobname.out | grep -F -m1 -B 999999 'Input orientation:' | head -n -5 >> jobname.txt
+python extractXyz.py jobname.txt
+
+cp jobname.xyz ../../7_results/geometries/jobname.xyz
+
 # copies the output to dipole folder and results folder
 cp jobname.out ../../5_dipoleCalculation/zmat_jobname.out
 cp jobname.out ../../7_results/noField_jobname.out

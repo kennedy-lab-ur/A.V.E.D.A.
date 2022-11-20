@@ -23,6 +23,7 @@ then
 
 	# create a directory for files related to the job being submitted
 	mkdir "${1}"
+	cp extractXyz.py ./${1}/
 	cp ${1}.gjf ./${1}/
 	# remove the extra input file and the temporary SLURM submission script
 	rm ${1}.gjf
